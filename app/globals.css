@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "@heroui/styles";
 
+/* 
+ * Cyberpunk / Technical Refined Aesthetic
+ * Deep black, subtle tech grid, glowing neon accents 
+ */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -11,17 +16,30 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-primary: oklch(0.65 0.25 290); /* Neon Purple */
+  --color-cyan: oklch(0.8 0.15 200); /* High-tech cyan */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #050505; /* Void black */
+    --foreground: #f3f4f6; /* Off-white */
   }
 }
 
+.dark {
+  --background: #050505;
+  --foreground: #f3f4f6;
+  --heroui-primary: oklch(0.65 0.25 290);
+  --heroui-focus: oklch(0.65 0.25 290);
+}
+
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-attachment: fixed;
 }

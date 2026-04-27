@@ -31,6 +31,9 @@ curl -fsSL https://heroui.com/install | bash -s heroui-react
 | Component API | Flat props: `<Card title="x">`    | Compound: `<Card><Card.Header>`             |
 | Styling       | Tailwind v3 + `@heroui/theme`     | Tailwind v4 + `@heroui/styles`         	  |
 | Packages      | `@heroui/system`, `@heroui/theme` | `@heroui/react`, `@heroui/styles` 		  |
+| Button Props  | `color="primary"`, `isLoading`    | `variant="primary"`, `isPending`            |
+| Link Props    | `color="primary"`, `size="sm"`    | `className="text-primary text-sm"`          |
+| Input API     | `<Input label="x" isRequired>`    | `<TextField isRequired><Label/><Input/></TextField>` |
 
 ```tsx
 // DO NOT DO THIS - v2 pattern
@@ -181,6 +184,28 @@ export default {
 ## Component Patterns
 
 All components use the **compound pattern** shown above (dot-notation subcomponents like `Card.Header`, `Card.Content`). Don't flatten to props — always compose with subcomponents. Fetch component docs for complete anatomy and examples.
+
+### Forms & Inputs (v3 Pattern)
+`<Input>` is now a raw HTML primitive. You **must** compose it with `<TextField>` for validation, labeling, and errors. Validation props (`isRequired`, `validate`, `minLength`) and standard input props (`name`, `type`) go on `<TextField>`.
+
+```tsx
+// DO NOT DO THIS (v2 Pattern)
+<Input label="Email" isRequired color="primary" errorMessage="Required" />
+
+// DO THIS (v3 Pattern)
+<TextField name="email" type="email" isRequired validate={(v) => !v ? "Required" : null}>
+  <Label>Email</Label>
+  <Input placeholder="email@example.com" />
+  <FieldError className="text-danger text-xs" />
+</TextField>
+```
+
+### Buttons
+Buttons no longer use the `color` prop. Use `variant` (`primary`, `secondary`, `tertiary`, `danger`, `ghost`, `outline`).
+Loading state uses `isPending` instead of `isLoading`.
+
+### Links
+Links no longer use `size` or `color` props. Apply styling directly via Tailwind classes (e.g., `className="text-sm text-primary"`).
 
 ---
 
