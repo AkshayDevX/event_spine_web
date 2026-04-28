@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/** biome-ignore-all lint/suspicious/noExplicitAny: false positive */
 
 import { getCookieValue } from "@/app/actions/cookies";
 
@@ -12,7 +12,8 @@ interface ApiClientConfig {
   baseUrl?: string;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:9000/api/v1";
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://localhost:9000/api/v1";
 
 // Core request function
 const request = async <T = any>(
@@ -55,7 +56,7 @@ const request = async <T = any>(
   }
 
   if (authToken) {
-    requestHeaders["Authorization"] = `Bearer ${authToken}`;
+    requestHeaders.Authorization = `Bearer ${authToken}`;
   }
 
   // Check if body is FormData to avoid setting Content-Type

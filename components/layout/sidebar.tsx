@@ -1,9 +1,16 @@
 "use client";
 
+import {
+  Activity,
+  Code,
+  LayoutDashboard,
+  Settings,
+  Users,
+  Zap,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Zap, Activity, Settings, Code, Users } from "lucide-react";
 
 const navigation = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -39,7 +46,8 @@ export function Sidebar() {
       {/* Navigation */}
       <nav className="flex-1 space-y-1 px-4 py-4 relative z-10">
         {navigation.map((item) => {
-          const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+          const isActive =
+            pathname === item.href || pathname.startsWith(`${item.href}/`);
           const Icon = item.icon;
 
           return (
@@ -54,7 +62,9 @@ export function Sidebar() {
             >
               <Icon
                 className={`mr-3 h-5 w-5 flex-shrink-0 transition-colors ${
-                  isActive ? "text-cyan" : "text-foreground/50 group-hover:text-white/80"
+                  isActive
+                    ? "text-cyan"
+                    : "text-foreground/50 group-hover:text-white/80"
                 }`}
               />
               {item.name}
@@ -73,7 +83,9 @@ export function Sidebar() {
             <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-[#0a0a0a] rounded-full"></div>
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-medium text-white/90">Admin User</span>
+            <span className="text-sm font-medium text-white/90">
+              Admin User
+            </span>
             <span className="text-xs text-foreground/50">Workspace Owner</span>
           </div>
         </div>

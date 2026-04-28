@@ -1,11 +1,8 @@
-import { Sidebar } from "@/components/layout/sidebar";
+import { Suspense } from "react";
 import { Header } from "@/components/layout/header";
+import { Sidebar } from "@/components/layout/sidebar";
 
-export default function WebLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function WebLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen w-full bg-[#0a0a0a] overflow-hidden text-foreground">
       {/* Background Ambient Glow Effects (Same as Auth for consistency) */}
@@ -15,17 +12,19 @@ export default function WebLayout({
       </div>
 
       {/* Persistent Sidebar */}
-      <Sidebar />
+      <Suspense>
+        <Sidebar />
+      </Suspense>
 
       {/* Main Content Wrapper */}
       <div className="flex-1 flex flex-col relative z-10 overflow-hidden bg-transparent">
-        <Header />
-        
+        <Suspense>
+          <Header />
+        </Suspense>
+
         {/* Scrollable Page Content */}
         <main className="flex-1 overflow-y-auto p-8 custom-scrollbar">
-          <div className="max-w-7xl mx-auto">
-            {children}
-          </div>
+          <div className="max-w-7xl mx-auto">{children}</div>
         </main>
       </div>
     </div>
