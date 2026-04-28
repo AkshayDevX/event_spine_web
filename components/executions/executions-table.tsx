@@ -148,7 +148,7 @@ export function ExecutionsTable({
                       <Chip
                         variant="soft"
                         color={getStatusColor(run.status)}
-                        className="capitalize border-none pl-0 text-sm font-medium"
+                        className="capitalize border-none pl-0 text-sm flex items-center justify-center font-medium"
                       >
                         {run.status}
                       </Chip>
