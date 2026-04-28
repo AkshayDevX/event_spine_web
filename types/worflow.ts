@@ -77,7 +77,7 @@ export interface WorkflowRun {
   id: string;
   workflowId: string;
   webhookEventId: string | null;
-  status: "pending" | "running" | "completed" | "failed";
+  status: "pending" | "running" | "completed" | "failed" | "halted";
   startedAt: string | null;
   completedAt: string | null;
   createdAt: string;
@@ -93,7 +93,7 @@ export interface WorkflowRunStep {
   id: string;
   workflowRunId: string;
   stepId: string;
-  status: "pending" | "running" | "completed" | "failed";
+  status: "pending" | "running" | "completed" | "failed" | "halted";
   startedAt: string | null;
   completedAt: string | null;
   logs: any;

@@ -55,6 +55,8 @@ export function ExecutionsTable({
         return "danger";
       case "running":
         return "accent";
+      case "halted":
+        return "warning";
       default:
         return "default";
     }
@@ -102,7 +104,10 @@ export function ExecutionsTable({
         <Table.ScrollContainer className="max-h-[800px] overflow-auto">
           <Table.Content aria-label="Executions Table" className="min-w-full">
             <Table.Header>
-              <Table.Column isRowHeader className="bg-transparent text-white/50 border-b border-white/10 font-mono text-xs uppercase tracking-wider py-4">
+              <Table.Column
+                isRowHeader
+                className="bg-transparent text-white/50 border-b border-white/10 font-mono text-xs uppercase tracking-wider py-4"
+              >
                 Status
               </Table.Column>
               <Table.Column className="bg-transparent text-white/50 border-b border-white/10 font-mono text-xs uppercase tracking-wider py-4">

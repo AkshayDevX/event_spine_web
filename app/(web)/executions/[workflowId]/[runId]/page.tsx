@@ -5,6 +5,7 @@ import {
   ArrowLeft,
   CheckCircle2,
   Clock,
+  OctagonX,
   TerminalSquare,
   XCircle,
 } from "lucide-react";
@@ -72,7 +73,9 @@ async function ExecutionDetailsPageComponent({
                     ? "danger"
                     : runDetails.status === "completed"
                       ? "success"
-                      : "default"
+                      : runDetails.status === "halted"
+                        ? "warning"
+                        : "default"
                 }
                 variant="soft"
                 className="capitalize font-mono text-xs"
@@ -130,6 +133,7 @@ async function ExecutionDetailsPageComponent({
                 {runDetails.steps.map((stepRun, index) => {
                   const isFailed = stepRun.status === "failed";
                   const isCompleted = stepRun.status === "completed";
+                  const isHalted = stepRun.status === "halted";
                   const stepDuration =
                     stepRun.completedAt && stepRun.startedAt
                       ? `${new Date(stepRun.completedAt).getTime() - new Date(stepRun.startedAt).getTime()}ms`
@@ -141,13 +145,17 @@ async function ExecutionDetailsPageComponent({
                         className={`z-10 flex h-12 w-12 items-center justify-center rounded-full shrink-0 shadow-lg ${
                           isFailed
                             ? "bg-danger/20 border-danger/50 text-danger"
-                            : isCompleted
-                              ? "bg-success/20 border-success/50 text-success"
-                              : "bg-white/5 border-white/10 text-white/50"
+                            : isHalted
+                              ? "bg-warning/20 border-warning/50 text-warning"
+                              : isCompleted
+                                ? "bg-success/20 border-success/50 text-success"
+                                : "bg-white/5 border-white/10 text-white/50"
                         }`}
                       >
                         {isFailed ? (
                           <XCircle className="h-5 w-5" />
+                        ) : isHalted ? (
+                          <OctagonX className="h-5 w-5" />
                         ) : isCompleted ? (
                           <CheckCircle2 className="h-5 w-5" />
                         ) : (
@@ -185,6 +193,14 @@ async function ExecutionDetailsPageComponent({
                         {isFailed && stepRun.error && (
                           <div className="bg-danger/10 border border-danger/20 rounded-xl p-4 text-danger-300 font-mono text-sm mt-2">
                             <strong>Error:</strong> {stepRun.error}
+                          </div>
+                        )}
+
+                        {/* Halted Box */}
+                        {isHalted && (
+                          <div className="bg-warning/10 border border-warning/20 rounded-xl p-4 text-warning font-mono text-sm mt-2">
+                            <strong>Halted:</strong> Execution was stopped by a
+                            filter step.
                           </div>
                         )}
 
