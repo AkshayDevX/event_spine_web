@@ -1,14 +1,15 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: false positive */
 "use server";
 
 import { cacheTag, updateTag } from "next/cache";
 import { api } from "@/lib/fetch";
 import type {
-  GetWorkflowByIdResponse,
-  WorkflowsResponse,
-  CreateWorkflowRequest,
-  UpdateWorkflowRequest,
   CreateStepRequest,
+  CreateWorkflowRequest,
+  GetWorkflowByIdResponse,
   UpdateStepRequest,
+  UpdateWorkflowRequest,
+  WorkflowsResponse,
 } from "@/types/worflow";
 
 export async function createWorkflowAction(data: CreateWorkflowRequest) {
@@ -24,7 +25,10 @@ export async function createWorkflowAction(data: CreateWorkflowRequest) {
   }
 }
 
-export async function updateWorkflowAction(id: string, data: UpdateWorkflowRequest) {
+export async function updateWorkflowAction(
+  id: string,
+  data: UpdateWorkflowRequest,
+) {
   try {
     const response = await api.patch(`/workflows/${id}`, data);
     updateTag("workflows");
@@ -37,7 +41,10 @@ export async function updateWorkflowAction(id: string, data: UpdateWorkflowReque
   }
 }
 
-export async function addStepAction(workflowId: string, data: CreateStepRequest) {
+export async function addStepAction(
+  workflowId: string,
+  data: CreateStepRequest,
+) {
   try {
     const response = await api.post(`/workflows/${workflowId}/steps`, data);
     updateTag("workflows");
@@ -48,9 +55,16 @@ export async function addStepAction(workflowId: string, data: CreateStepRequest)
   }
 }
 
-export async function updateStepAction(workflowId: string, stepId: string, data: UpdateStepRequest) {
+export async function updateStepAction(
+  workflowId: string,
+  stepId: string,
+  data: UpdateStepRequest,
+) {
   try {
-    const response = await api.patch(`/workflows/${workflowId}/steps/${stepId}`, data);
+    const response = await api.patch(
+      `/workflows/${workflowId}/steps/${stepId}`,
+      data,
+    );
     updateTag("workflows");
     updateTag(`workflow-${workflowId}`);
     return { success: true, data: response };
@@ -61,7 +75,9 @@ export async function updateStepAction(workflowId: string, stepId: string, data:
 
 export async function deleteStepAction(workflowId: string, stepId: string) {
   try {
-    const response = await api.delete(`/workflows/${workflowId}/steps/${stepId}`);
+    const response = await api.delete(
+      `/workflows/${workflowId}/steps/${stepId}`,
+    );
     updateTag("workflows");
     updateTag(`workflow-${workflowId}`);
     return { success: true, data: response };
