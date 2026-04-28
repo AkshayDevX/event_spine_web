@@ -5,9 +5,13 @@ import { api } from "@/lib/fetch";
 import type {
   GetWorkflowByIdResponse,
   WorkflowsResponse,
+  CreateWorkflowRequest,
+  UpdateWorkflowRequest,
+  CreateStepRequest,
+  UpdateStepRequest,
 } from "@/types/worflow";
 
-export async function createWorkflowAction(data: any) {
+export async function createWorkflowAction(data: CreateWorkflowRequest) {
   try {
     const response = await api.post("/workflows/", data);
     updateTag("workflows");
@@ -20,7 +24,7 @@ export async function createWorkflowAction(data: any) {
   }
 }
 
-export async function updateWorkflowAction(id: string, data: any) {
+export async function updateWorkflowAction(id: string, data: UpdateWorkflowRequest) {
   try {
     const response = await api.patch(`/workflows/${id}`, data);
     updateTag("workflows");
@@ -30,6 +34,39 @@ export async function updateWorkflowAction(id: string, data: any) {
       success: false,
       error: error.message || "Failed to update workflow",
     };
+  }
+}
+
+export async function addStepAction(workflowId: string, data: CreateStepRequest) {
+  try {
+    const response = await api.post(`/workflows/${workflowId}/steps`, data);
+    updateTag("workflows");
+    updateTag(`workflow-${workflowId}`);
+    return { success: true, data: response };
+  } catch (error: any) {
+    return { success: false, error: error.message || "Failed to add step" };
+  }
+}
+
+export async function updateStepAction(workflowId: string, stepId: string, data: UpdateStepRequest) {
+  try {
+    const response = await api.patch(`/workflows/${workflowId}/steps/${stepId}`, data);
+    updateTag("workflows");
+    updateTag(`workflow-${workflowId}`);
+    return { success: true, data: response };
+  } catch (error: any) {
+    return { success: false, error: error.message || "Failed to update step" };
+  }
+}
+
+export async function deleteStepAction(workflowId: string, stepId: string) {
+  try {
+    const response = await api.delete(`/workflows/${workflowId}/steps/${stepId}`);
+    updateTag("workflows");
+    updateTag(`workflow-${workflowId}`);
+    return { success: true, data: response };
+  } catch (error: any) {
+    return { success: false, error: error.message || "Failed to delete step" };
   }
 }
 

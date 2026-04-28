@@ -1,7 +1,5 @@
 "use client";
 
-import { setCookieValue } from "@/app/actions/cookies";
-import { api } from "@/lib/fetch";
 import {
   Button,
   FieldError,
@@ -14,6 +12,8 @@ import {
 import { Eye, EyeOff } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setCookieValue } from "@/app/actions/cookies";
+import { api } from "@/lib/fetch";
 
 export function SignupForm() {
   const [isLoading, setIsLoading] = useState(false);

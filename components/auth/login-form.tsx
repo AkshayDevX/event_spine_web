@@ -1,7 +1,5 @@
 "use client";
 
-import { setCookieValue } from "@/app/actions/cookies";
-import { api } from "@/lib/fetch";
 import {
   Button,
   FieldError,
@@ -13,6 +11,8 @@ import {
 } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { setCookieValue } from "@/app/actions/cookies";
+import { api } from "@/lib/fetch";
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
