@@ -1,12 +1,12 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: false positive */
 "use client";
 
-import FloatingParticles from "@/components/layout/not-found/floating-particles";
 import { Button } from "@heroui/react";
 import { animate, createScope, createTimeline, stagger } from "animejs";
 import { AlertTriangle, ArrowLeft, Home, RotateCcw } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useEffect, useRef } from "react";
+import FloatingParticles from "@/components/layout/not-found/floating-particles";
 
 export default function ErrorPage({
   error,
@@ -283,10 +283,7 @@ export default function ErrorPage({
               boxShadow: "0 0 40px oklch(0.6 0.25 25 / 0.15)",
             }}
           >
-            <AlertTriangle
-              size={40}
-              style={{ color: "oklch(0.6 0.25 25)" }}
-            />
+            <AlertTriangle size={40} style={{ color: "oklch(0.6 0.25 25)" }} />
           </div>
         </div>
 
@@ -350,7 +347,8 @@ export default function ErrorPage({
               className="text-xs leading-relaxed sm:text-sm"
               style={{ color: "oklch(0.7 0 0 / 0.6)" }}
             >
-              {error.message || "An unexpected error occurred in the application runtime."}
+              {error.message ||
+                "An unexpected error occurred in the application runtime."}
             </p>
             {error.digest && (
               <p
@@ -365,11 +363,7 @@ export default function ErrorPage({
 
         {/* ─── Action Buttons ─── */}
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-          <Button
-            className="er-action"
-            style={{ opacity: 0 }}
-            onPress={reset}
-          >
+          <Button className="er-action" style={{ opacity: 0 }} onPress={reset}>
             <RotateCcw size={16} />
             Try Again
           </Button>

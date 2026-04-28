@@ -72,3 +72,55 @@ export interface UpdateStepRequest {
   orderNumber?: number;
   config?: Record<string, any>;
 }
+
+export interface WorkflowRun {
+  id: string;
+  workflowId: string;
+  webhookEventId: string | null;
+  status: "pending" | "running" | "completed" | "failed";
+  startedAt: string | null;
+  completedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  workflow?: {
+    name: string;
+    triggerType: string;
+    webhookPath: string;
+  };
+}
+
+export interface WorkflowRunStep {
+  id: string;
+  workflowRunId: string;
+  stepId: string;
+  status: "pending" | "running" | "completed" | "failed";
+  startedAt: string | null;
+  completedAt: string | null;
+  logs: any;
+  error: string | null;
+  createdAt: string;
+  updatedAt: string;
+  step?: WorkflowStep;
+}
+
+export interface WorkflowRunDetails extends WorkflowRun {
+  event?: {
+    id: string;
+    payload: any;
+    headers: any;
+    createdAt: string;
+  };
+  steps: WorkflowRunStep[];
+}
+
+export interface ExecutionsResponse {
+  runs?: WorkflowRun[];
+  meta?: {
+    total: number;
+    totalPages: number;
+    page: number;
+    limit: number;
+  };
+  error?: string;
+  message?: string;
+}

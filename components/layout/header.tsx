@@ -1,25 +1,30 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { Bell, Search } from "lucide-react";
 import { Button } from "@heroui/react";
+import { Bell, Search } from "lucide-react";
+import { usePathname } from "next/navigation";
 
 export function Header() {
   const pathname = usePathname();
 
   // Simple breadcrumb logic based on pathname
   const pathSegments = pathname.split("/").filter(Boolean);
-  const currentPage = pathSegments.length > 0 
-    ? pathSegments[0].charAt(0).toUpperCase() + pathSegments[0].slice(1)
-    : "Dashboard";
+  const currentPage =
+    pathSegments.length > 0
+      ? pathSegments[0].charAt(0).toUpperCase() + pathSegments[0].slice(1)
+      : "Dashboard";
 
   return (
     <header className="h-20 w-full flex items-center justify-between px-8 bg-transparent relative z-10 border-b border-white/5">
       {/* Page Title & Breadcrumbs */}
       <div>
-        <h1 className="text-2xl font-bold text-white tracking-tight">{currentPage}</h1>
+        <h1 className="text-2xl font-bold text-white tracking-tight">
+          {currentPage}
+        </h1>
         <div className="flex items-center text-sm text-foreground/50 mt-1">
-          <span className="hover:text-white/80 transition-colors cursor-pointer">Home</span>
+          <span className="hover:text-white/80 transition-colors cursor-pointer">
+            Home
+          </span>
           <span className="mx-2">/</span>
           <span className="text-cyan">{currentPage}</span>
         </div>

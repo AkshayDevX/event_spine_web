@@ -93,7 +93,7 @@ export const useWorkflowStore = create<WorkflowStore>((set) => ({
         } else if (s.actionType === "http_request" && !config.headers) {
           config.headers = '{\n  "Content-Type": "application/json"\n}';
         }
-        
+
         if (
           s.actionType === "http_request" &&
           config.body &&

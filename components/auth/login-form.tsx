@@ -33,8 +33,10 @@ export function LoginForm() {
 
       // Redirect to home
       router.push("/");
-    } catch (err: any) {
-      setServerError(err.message);
+    } catch (err: unknown) {
+      setServerError(
+        err instanceof Error ? err.message : "An unknown error occurred",
+      );
     } finally {
       setIsLoading(false);
     }

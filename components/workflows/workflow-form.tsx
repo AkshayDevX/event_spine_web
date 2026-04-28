@@ -94,10 +94,7 @@ export function WorkflowForm({ initialData }: { initialData?: Workflow }) {
           if (typeof config.headers === "string") {
             config.headers = JSON.parse(config.headers);
           }
-          if (
-            typeof config.body === "string" &&
-            config.body.trim() !== ""
-          ) {
+          if (typeof config.body === "string" && config.body.trim() !== "") {
             config.body = JSON.parse(config.body);
           } else if (
             typeof config.body === "string" &&
@@ -227,7 +224,11 @@ export function WorkflowForm({ initialData }: { initialData?: Workflow }) {
         </div>
       )}
 
-      <Form id="workflow-form" onSubmit={handleSubmit} validationBehavior="native">
+      <Form
+        id="workflow-form"
+        onSubmit={handleSubmit}
+        validationBehavior="native"
+      >
         {/* Core Configuration */}
         <Card className="bg-white/[0.02] border-white/5 backdrop-blur-2xl shadow-xl w-full mb-12 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-cyan/5 to-transparent pointer-events-none" />

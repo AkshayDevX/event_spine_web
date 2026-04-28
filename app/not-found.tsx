@@ -1,12 +1,12 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: false positive */
 "use client";
 
-import FloatingParticles from "@/components/layout/not-found/floating-particles";
 import { Button } from "@heroui/react";
 import { animate, createScope, createTimeline, stagger } from "animejs";
 import { ArrowLeft, Home } from "lucide-react";
 import Link from "next/link";
 import { Suspense, useEffect, useRef } from "react";
+import FloatingParticles from "@/components/layout/not-found/floating-particles";
 
 export default function NotFound() {
   const root = useRef<HTMLDivElement>(null);
