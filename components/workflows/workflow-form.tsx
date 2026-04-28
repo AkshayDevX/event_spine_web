@@ -249,7 +249,14 @@ export function WorkflowForm({ initialData }: { initialData?: Workflow }) {
             {isEdit && (
               <div className="ml-auto flex items-center gap-3">
                 <span className="text-sm font-mono text-white/50">Status:</span>
-                <Switch isSelected={isActive} onChange={setIsActive} />
+                <Switch
+                  isSelected={isActive}
+                  onChange={setIsActive}
+                >
+                  <Switch.Control>
+                    <Switch.Thumb />
+                  </Switch.Control>
+                </Switch>
               </div>
             )}
           </Card.Header>

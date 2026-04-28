@@ -34,6 +34,35 @@ export async function getExecutions(
   }
 }
 
+export async function getWorkflowRuns(
+  token: string,
+  workflowId: string,
+  limit = 10,
+): Promise<ExecutionsResponse> {
+  "use cache";
+  cacheTag(`workflow-runs-${workflowId}`, "executions");
+  try {
+    const response = await api.get(`/workflows/${workflowId}/runs`, {
+      params: { limit, page: 1 },
+      useCache: true,
+      token,
+    });
+
+    if (response.error) {
+      throw new Error(response.error);
+    }
+
+    return response as ExecutionsResponse;
+  } catch (error: unknown) {
+    return {
+      error:
+        error instanceof Error
+          ? error.message
+          : "Failed to fetch workflow runs",
+    };
+  }
+}
+
 export async function getExecutionDetails(
   token: string,
   workflowId: string,

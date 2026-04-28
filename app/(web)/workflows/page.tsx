@@ -6,11 +6,14 @@ import {
   PlayCircle,
   Plus,
   Webhook,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getCookieValue } from "@/app/actions/cookies";
 import { getWorkflows } from "@/app/actions/workflows";
+import { WebhookPathDisplay } from "@/components/workflows/webhook-path-display";
+import { WorkflowRunsModal } from "@/components/workflows/workflow-runs-modal";
 import { WorkflowsControls } from "@/components/workflows/workflows-controls";
 import type { Workflow } from "@/types/worflow";
 
@@ -26,7 +29,7 @@ export default async function WorkflowsPage({
         <div className="absolute inset-0 bg-[url('https://transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
         <div className="relative z-10">
           <h2 className="text-3xl font-bold text-white tracking-tight mb-2 flex items-center gap-2">
-            <Activity className="text-cyan h-8 w-8" /> Workflows
+            <Zap className="text-cyan h-8 w-8" /> Workflows
           </h2>
           <p className="text-foreground/70 max-w-lg">
             Manage and monitor your automated workflows. Create new webhooks,
@@ -113,9 +116,7 @@ async function WorkflowsPageComponent({
                     <h3 className="text-lg font-bold text-white group-hover:text-cyan transition-colors line-clamp-1">
                       {workflow.name}
                     </h3>
-                    <p className="text-sm text-foreground/50 mt-1 font-mono text-xs truncate max-w-[200px]">
-                      /{workflow.webhookPath}
-                    </p>
+                    <WebhookPathDisplay path={workflow.webhookPath} />
                   </div>
                   <Chip
                     size="sm"
@@ -161,15 +162,10 @@ async function WorkflowsPageComponent({
                   </div>
                 </Card.Content>
                 <Card.Footer className="px-6 pb-6 pt-2 flex justify-end gap-2">
-                  <Link href={`/workflows/${workflow.id}`}>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="text-white/70 hover:text-white"
-                    >
-                      View Runs
-                    </Button>
-                  </Link>
+                  <WorkflowRunsModal
+                    workflow={workflow}
+                    token={sessionToken || ""}
+                  />
                   <Link href={`/workflows/${workflow.id}/edit`}>
                     <Button
                       size="sm"
